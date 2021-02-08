@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: tailscale
+  labels:
+    app: tailscale
 spec:
   podManagementPolicy: OrderedReady
   replicas: 1
@@ -34,6 +36,9 @@ spec:
         volumeMounts:
         - name: state
           mountPath: /var/lib/tailscale
+        resources:
+          requests:
+            cpu: 10m
         env:
         - name: AUTH_KEY
           valueFrom:
